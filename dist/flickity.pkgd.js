@@ -1,5 +1,5 @@
 /*!
- * Flickity PACKAGED v1.0.3
+ * Flickity PACKAGED v1.0.4
  * Touch, responsive, flickable galleries
  *
  * Licensed GPLv3 for open source use
@@ -1901,7 +1901,7 @@ return proto;
 }));
 
 /*!
- * Flickity v1.0.3
+ * Flickity v1.0.4
  * Touch, responsive, flickable galleries
  *
  * Licensed GPLv3 for open source use
@@ -2250,6 +2250,14 @@ Flickity.prototype._getWrapShiftCells = function() {
   // only for wrap-around
   if ( !this.options.wrapAround ) {
     return;
+  }
+  // cancel wrap-around if content smaller than container
+  var lastCell = this.getLastCell();
+  var contentWidth = this.slideableWidth - lastCell.size[ this.options.rightToLeft ? 'marginLeft' : 'marginRight' ];
+  if ( contentWidth <= this.size.innerWidth ) {
+    this.options.wrapAround = false;
+  } else {
+    this.options.wrapAround = true;
   }
   // unshift previous cells
   this._unshiftCells( this.beforeShiftCells );
