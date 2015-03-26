@@ -349,6 +349,14 @@ Flickity.prototype._getWrapShiftCells = function() {
   if ( !this.options.wrapAround ) {
     return;
   }
+  // cancel wrap-around if content smaller than container
+  var lastCell = this.getLastCell();
+  var contentWidth = this.slideableWidth - lastCell.size[ this.options.rightToLeft ? 'marginLeft' : 'marginRight' ];
+  if ( contentWidth <= this.size.innerWidth ) {
+    this.options.wrapAround = false;
+  } else {
+    this.options.wrapAround = true;
+  }
   // unshift previous cells
   this._unshiftCells( this.beforeShiftCells );
   this._unshiftCells( this.afterShiftCells );
